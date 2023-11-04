@@ -73,12 +73,7 @@
                                                             <option value="">Please select</option>
                                                             <?php foreach ($allcategory as $cat) { ?>
                                                                 <option value="<?php echo $cat->prod_cat_id; ?>" <?php echo ($cat->prod_cat_id == $category->parent_id) ? 'selected' : ''; ?>>
-                                                                    <?php
-                                                                    $main_cat = (!empty($cat->parent_id)) ? get_data_by_id('parent_id', 'cc_product_category', 'prod_cat_id', $cat->parent_id) : '';
-                                                                    echo (!empty($main_cat)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $main_cat) . '->' : '';
-                                                                    echo (!empty($cat->parent_id)) ? get_data_by_id('category_name', 'cc_product_category', 'prod_cat_id', $cat->parent_id) . '->' : '';
-                                                                    echo $cat->category_name;
-                                                                    ?>
+                                                                    <?php echo display_category_with_parent($cat->prod_cat_id);?>
                                                                 </option>
                                                             <?php } ?>
 
@@ -100,7 +95,7 @@
                                                             foreach ($icons as $valic) { ?>
                                                                 <div class="col-md-2  custom-control custom-radio">
                                                                     <input class="custom-control-input" <?php echo ($category->icon_id == $valic->icon_id) ? 'checked' : ''; ?> type="radio" id="customRadio_<?php echo $i++ ?>" name="icon_id" value="<?php echo $valic->icon_id; ?>">
-                                                                    <label for="customRadio_<?php echo $j++ ?>" class="custom-control-label"><?php echo image_view('icons', '', $valic->name, 'no_image', '') ?></label>
+                                                                    <label for="customRadio_<?php echo $j++ ?>" class="custom-control-label"><?php echo $valic->code;//image_view('icons', '', $valic->name, 'no_image', '') ?></label>
                                                                 </div>
                                                             <?php } ?>
 
@@ -121,6 +116,11 @@
                                                         <label>Popular</label>
                                                         <?php $checkPop = is_exists('cc_product_category_popular', 'prod_cat_id', $category->prod_cat_id); ?>
                                                         <input type="checkbox" name="popular" <?php echo ($checkPop == false) ? 'checked' : ''; ?> data-bootstrap-switch>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Shop By Category</label>
+                                                        <?php $checkShop = is_exists('cc_product_category_shop_by', 'prod_cat_id', $category->prod_cat_id); ?>
+                                                        <input type="checkbox" name="shop_by" <?php echo ($checkShop == false) ? 'checked' : ''; ?> data-bootstrap-switch>
                                                     </div>
                                                 </div>
                                             </div>

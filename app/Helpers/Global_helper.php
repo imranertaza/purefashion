@@ -54,7 +54,7 @@ function saleDate($datetime = '0000-00-00 00:00:00')
     $date = date('d/m/y', strtotime($datetime));
     $time = date('h:i a', strtotime($datetime));
 
-    return $date . '<br/>' . $time;
+    return $date . ' ' . $time;
 }
 
 function get_data_by_id($needCol, $table, $whereCol, $whereInfo)
@@ -136,7 +136,7 @@ function package_expiry($shop_id)
     $newDb = $db2->database;
     $db2->query('use ' . $newDb);
 
-    $tab  = $db2->table('license');
+    $tab = $db2->table('license');
     $pack = $tab->where('sch_id', $shop_id)->get()->getRow();
 
     $end_date = '';
@@ -172,7 +172,7 @@ function getIdByListInOption($selected, $tblId, $needCol, $table, $where, $needw
     return $options;
 }
 
-function image_view($url, $slug, $image, $no_image, $class = '')
+function image_view($url, $slug, $image, $no_image, $class = '', $id = '')
 {
     $bas_url = base_url();
 
@@ -186,17 +186,17 @@ function image_view($url, $slug, $image, $no_image, $class = '')
     $no_img = $bas_url . '/' . $url . '/' . $no_image;
     if (!empty($image)) {
         if (!file_exists($dir)) {
-            $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+            $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
         } else {
             $imgPath = $dir . '/' . $image;
             if (file_exists($imgPath)) {
-                $result = '<img data-sizes="auto" src="' . $img . '" class="' . $class . '" loading="lazy">';
+                $result = '<img data-sizes="auto" leance id="' . $id . '" src="' . $img . '" class="' . $class . '" loading="lazy">';
             } else {
-                $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+                $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
             }
         }
     } else {
-        $result = '<img data-sizes="auto" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
+        $result = '<img data-sizes="auto" id="' . $id . '" src="' . $no_img . '" class="' . $class . '" loading="lazy">';
     }
     return $result;
 }
@@ -266,7 +266,7 @@ function is_exists_update($table, $whereCol, $whereInfo, $whereId, $id)
 function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $module_name)
 {
 
-    $active_url  = current_url(true);
+    $active_url = current_url(true);
 
     $permission = new Permission();
 
@@ -275,7 +275,7 @@ function add_main_based_menu_with_permission($title, $url, $roleId, $icon, $modu
 
     $access = $permission->have_access($roleId, $module_name, 'mod_access');
     if ($access == 1) {
-        $class_active   = ($active_url === $url) ? 'active' : '';
+        $class_active = ($active_url === $url) ? 'active' : '';
         $menu .= '<li class="nav-item" ><a class="nav-link' . $class_active . '"  href="' . $url . '" >';
         $menu .= '<i class="nav-icon fas ' . $icon . '"></i>';
         $menu .= '<p>' . $title . '</p>';
@@ -357,7 +357,7 @@ function getParentCategoryArray()
 function getCategoryBySubArray($cat_id)
 {
     $table = DB()->table('cc_product_category');
-    $query = $table->where('parent_id', $cat_id)->orderBy('sort_order','ASC')->get()->getResult();
+    $query = $table->where('parent_id', $cat_id)->get()->getResult();
     return $query;
 }
 
@@ -533,7 +533,7 @@ function top_menu()
     $view = '';
     foreach ($query as $val) {
         $url = base_url('category/' . $val->prod_cat_id);
-        $view .= '<li class="nav-item"><a class="cl" aria-current="page" href="' . $url . '" >' . $val->category_name . '</a></li>';
+        $view .= '<li class="nav-item"><a class="nav-link" aria-current="page" href="' . $url . '" >' . $val->category_name . '</a></li>';
     }
     return $view;
 }
@@ -568,6 +568,30 @@ function get_lebel_by_title_in_theme_settings($lable)
     $data = $table->where('label', $lable)->get()->getRow();
     if (!empty($data)) {
         $result = $data->title;
+    } else {
+        $result = '';
+    }
+    return $result;
+}
+
+function get_lebel_by_title_in_theme_settings_with_theme($lable, $theme)
+{
+    $table = DB()->table('cc_theme_settings');
+    $data = $table->where('label', $lable)->where('theme', $theme)->get()->getRow();
+    if (!empty($data)) {
+        $result = $data->title;
+    } else {
+        $result = '';
+    }
+    return $result;
+}
+
+function get_lebel_by_value_in_theme_settings_with_theme($lable, $theme)
+{
+    $table = DB()->table('cc_theme_settings');
+    $data = $table->where('label', $lable)->where('theme', $theme)->get()->getRow();
+    if (!empty($data)) {
+        $result = $data->value;
     } else {
         $result = '';
     }
@@ -628,7 +652,7 @@ function order_email_template($orderId)
     $logoImg = get_lebel_by_value_in_theme_settings('side_logo');
     $logo = image_view('uploads/logo', '', $logoImg, 'noimage.png', 'logo-css');
     $view = '';
-    $view .= "<div style='width:680px'><style> .logo-css{ margin-bottom:20px;border:none; width: 216px;} </style>
+    $view .= "<div style='width:680px'><style> .logo-css{ margin-bottom:20px;border:none; } </style>
     <a href='#' title='Amazing Gadgets' target='_blank' >
         $logo
     </a>
@@ -797,7 +821,7 @@ function success_email_template($title, $message, $url)
     $link = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="30px" height="30px"><path fill="#0288D1" d="M42,37c0,2.762-2.238,5-5,5H11c-2.761,0-5-2.238-5-5V11c0-2.762,2.239-5,5-5h26c2.762,0,5,2.238,5,5V37z"/><path fill="#FFF" d="M12 19H17V36H12zM14.485 17h-.028C12.965 17 12 15.888 12 14.499 12 13.08 12.995 12 14.514 12c1.521 0 2.458 1.08 2.486 2.499C17 15.887 16.035 17 14.485 17zM36 36h-5v-9.099c0-2.198-1.225-3.698-3.192-3.698-1.501 0-2.313 1.012-2.707 1.99C24.957 25.543 25 26.511 25 27v9h-5V19h5v2.616C25.721 20.5 26.85 19 29.738 19c3.578 0 6.261 2.25 6.261 7.274L36 36 36 36z"/></svg>';
     $view = '';
     $view .= "<div style='width:680px'>
-            <style> .logo-css{ margin-top:20px;border:none;width: 216px; } </style>
+            <style> .logo-css{ margin-top:20px;border:none; } </style>
     <div style='width:100%;background-color: #FFC107; min-height:250px; text-align: center;'>        
         $logo
         <h1 style='color:#000000; '>Welcome!</h1>
@@ -851,13 +875,13 @@ function addToCartBtn($product_id)
     $btn = '';
     if (!empty($qtyCheck)) {
         if ($optionCheck == true) {
-            $btn = '<a href="javascript:void(0)" onclick="addToCart(' . $product_id . ')" class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>';
+            $btn = '<a href="javascript:void(0)" onclick="addToCart(' . $product_id . ')" class="btn btn-cart w-100 rounded-0 mt-auto">Add to Cart</a>';
         } else {
             $url = base_url('detail/' . $product_id);
-            $btn = '<a href="' . $url . '"  class="btn btn-cart w-100 rounded-0 mt-3">Add to Cart</a>';
+            $btn = '<a href="' . $url . '"  class="btn btn-cart w-100 rounded-0 mt-auto">Add to Cart</a>';
         }
     } else {
-        $btn = '<a href="javascript:void(0)"  class="btn btn-cart w-100 rounded-0 mt-3">Out of Stock</a>';
+        $btn = '<a href="javascript:void(0)"  class="btn btn-cart w-100 rounded-0 mt-auto">Out of Stock</a>';
     }
     return $btn;
 }
@@ -935,4 +959,106 @@ function paypal_settings()
     );
 
     return $settings;
+}
+
+//this function only in used Theme 3
+function get_category_id_by_product_show_home_slide($category_id)
+{
+    $table = DB()->table('cc_products');
+    $table->join('cc_product_to_category', 'cc_product_to_category.product_id = cc_products.product_id')->where('cc_products.status', 'Active');
+    $result = $table->where('cc_product_to_category.category_id', $category_id)->get()->getResult();
+
+    $view = '';
+    $count = 0;
+    foreach ($result as $pro) {
+        if ($count % 2 == 0) $view .= '<div class="swiper-slide">' . "\n";
+        $view .= '<div class="border p-3 product-grid h-100 d-flex align-items-stretch flex-column position-relative">
+            <div class="product-grid position-relative">';
+        if (modules_key_by_access('wishlist') == 1) {
+            if (!isset(newSession()->isLoggedInCustomer)) {
+                $view .= '<a href="' . base_url('login') . '" class="btn-wishlist position-absolute mt-2 ms-2"  ><i class="fa-solid fa-heart"></i>
+                    <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
+                    </a>';
+            } else {
+                $view .= '<a href="javascript:void(0)" class="btn-wishlist position-absolute mt-2 ms-2" onclick="addToWishlist(' . $pro->product_id . ')"><i class="fa-solid fa-heart"></i>
+                    <span class="btn-wishlist-text position-absolute  mt-5 ms-2">Favorite</span>
+                    </a>';
+            }
+
+        }
+
+        if (modules_key_by_access('compare') == 1) {
+            $view .= '<a href="javascript:void(0)" onclick="addToCompare(' . $pro->product_id . ')" class="btn-compare position-absolute  mt-5 ms-2"><i class="fa-solid fa-code-compare"></i>
+                    <span class="btn-compare-text position-absolute  mt-5 ms-2">Compare</span>
+                </a>';
+        }
+
+        $view .= '<div class="product-top mb-2">
+                    ' . image_view('uploads/products', $pro->product_id, '191_' . $pro->image, 'noimage.png', 'img-fluid w-100') . '                    
+                </div>
+                <div class="product-bottom mt-auto">
+                    <div class="product-title product_title_area mb-2">
+                        <a href="' . base_url('detail/' . $pro->product_id) . '">' . substr($pro->name, 0, 40) . '</a>
+                    </div>
+                    <div class="price mb-2">' . currency_symbol($pro->price) . '</div>';
+
+        $view .= addToCartBtn($pro->product_id);
+        $view .= '</div>                                            
+            </div>  ';
+        $view .= '</div>' . "\n";
+
+        if ($count % 2 != 0) $view .= '</div>';
+
+        $count++;
+    }
+
+    if ($count % 2 != 0) {
+        $view .= '</div>';
+    }
+
+
+    return $view;
+
+}
+
+
+
+function get_category_name_by_id($cate_id){
+    $table = DB()->table('cc_product_category');
+    $cat = $table->where('prod_cat_id', $cate_id)->get()->getRow();
+    return $cat->category_name;
+}
+
+function category_parent_count($cate_id){
+    $table = DB()->table('cc_product_category');
+    $cat = $table->where('prod_cat_id', $cate_id)->get()->getRow();
+    if ($cat->parent_id) {
+        return category_parent_count($cat->parent_id) + 1;
+    }
+}
+
+
+function display_category_with_parent($cate_id)
+{
+    $catName = array();
+    if (!empty($cate_id)) {
+        $totalParent = category_parent_count($cate_id);
+        for ($i=0; $i<=$totalParent; $i++) {
+            $catName[] = get_category_name_by_id($cate_id);
+            $table = DB()->table('cc_product_category');
+            $cat = $table->where('prod_cat_id', $cate_id)->get()->getRow();
+            $cate_id = $cat->parent_id;
+        }
+    }
+
+    rsort($catName);
+    for( $i = 0; $i<=count($catName)-1; $i++){
+        if ($i == count($catName)-1) {
+            print $catName[$i];
+        }else {
+            print $catName[$i]." > ";
+        }
+    }
+
+
 }

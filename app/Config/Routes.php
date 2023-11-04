@@ -77,6 +77,8 @@ $routes->post('/product_category_update_action_others', 'Admin\Product_category:
 $routes->get('/product_category_update/(:num)', 'Admin\Product_category::update/$1');
 $routes->get('/product_category_delete/(:num)', 'Admin\Product_category::delete/$1');
 
+$routes->post('/product_category_sort_update_action', 'Admin\Product_category::sort_update_action');
+
 //Products
 $routes->get('/products', 'Admin\Products::index');
 $routes->get('/product_create', 'Admin\Products::create');
@@ -115,11 +117,16 @@ $routes->post('/customers_update_action', 'Admin\Customers::update_action');
 $routes->post('/customers_general_action', 'Admin\Customers::general_action');
 $routes->get('/customers_update/(:num)', 'Admin\Customers::update/$1');
 $routes->get('/customers_delete/(:num)', 'Admin\Customers::delete/$1');
+$routes->get('/customers_ledger/(:num)', 'Admin\Customers::ledger/$1');
+
+// founds request
+$routes->get('/found_request', 'Admin\Found_request::index');
+$routes->post('/found_request_action', 'Admin\Found_request::found_action');
 
 //Settings
 $routes->get('/settings', 'Admin\Settings::index');
 $routes->post('/settings_update_action', 'Admin\Settings::update_action');
-$routes->post('/get_state', 'Admin\Settings::country_zoon');
+
 
 $routes->post('/settings_update_action', 'Admin\Settings::update_action');
 
@@ -155,6 +162,9 @@ $routes->post('/bitcoin_update_action', 'Admin\Payment\Bitcoin::update_action');
 
 $routes->get('/credit_card/(:num)', 'Admin\Payment\Credit_card::settings/$1');
 $routes->post('/credit_card_update_action', 'Admin\Payment\Credit_card::update_action');
+
+$routes->get('/u_wallet/(:num)', 'Admin\Payment\U_wallet::settings/$1');
+$routes->post('/u_wallet_update_action', 'Admin\Payment\U_wallet::update_action');
 
 //Ajax
 $routes->get('/page_list', 'Admin\Page_settings::index');
@@ -205,6 +215,13 @@ $routes->post('/settings_update', 'Admin\Theme_settings::settings_update');
 $routes->post('/home_special_banner', 'Admin\Theme_settings::home_special_banner');
 $routes->post('/home_left_side_banner', 'Admin\Theme_settings::home_left_side_banner');
 
+$routes->post('/header_section_one_update', 'Admin\Theme_settings_3::header_section_one_update');
+$routes->post('/header_section_two_update', 'Admin\Theme_settings_3::header_section_two_update');
+$routes->post('/home_category_update', 'Admin\Theme_settings_3::home_category_update');
+$routes->post('/banner_bottom_update', 'Admin\Theme_settings_3::banner_bottom_update');
+
+
+
 //Email_send
 $routes->get('/email_send', 'Admin\Email_send::index');
 $routes->post('/email_send_action', 'Admin\Email_send::email_send_action');
@@ -253,6 +270,13 @@ $routes->get('/profile', 'Customer\Profile::index');
 $routes->post('/profile_update_action', 'Customer\Profile::update_action');
 $routes->post('/password_action_update', 'Customer\Profile::password_action');
 $routes->post('/newsletter_action', 'Customer\Profile::newsletter_action');
+
+
+$routes->get('/my_wallet', 'Customer\Wallet::index');
+$routes->get('/add_founds', 'Customer\Wallet::add_founds');
+$routes->post('/add_founds_action', 'Customer\Wallet::found_action');
+
+$routes->get('/ledger', 'Customer\Customer_ledger::index');
 
 
 
@@ -309,7 +333,8 @@ $routes->Post('/category_url_generate', 'Category::url_generate');
 //Search top
 $routes->post('/top_search', 'Search::search_action');
 
-
+//ajax controller
+$routes->post('/get_state', 'Admin\Ajax::get_state');
 
 
 /*
