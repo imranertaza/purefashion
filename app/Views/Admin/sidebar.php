@@ -63,7 +63,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
-                            <p> Products Options <i class="fas fa-angle-left right"></i>
+                            <p> Catalog <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
@@ -160,7 +160,20 @@
                     </li>
                 <?php } ?>
 
-                <li class="nav-header">Settings</li>
+                <?php
+                $modArrayPur = ['Found_request'];
+                $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
+                if ($menuAccessPur == true) {
+                ?>
+                    <li class="nav-item">
+                        <a href="<?php echo base_url('found_request'); ?>" class="nav-link">
+                            <i class="nav-icon far fa-calendar-alt"></i>
+                            <p>Found Request </p>
+                        </a>
+                    </li>
+                <?php } ?>
+
+                <li class="nav-header">System</li>
                 <?php
                 $modArrayPur = ['Settings'];
                 $menuAccessPur = all_menu_permission_check($modArrayPur, $adRoleId);
