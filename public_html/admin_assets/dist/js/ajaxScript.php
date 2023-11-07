@@ -36,6 +36,7 @@ $(function() {
     $('.select2_pro').select2({
         multiple: true,
         theme: 'bootstrap4',
+        tags: true,
         ajax: {
             url: "<?php echo base_url('related_product') ?>",
             dataType: 'json',
@@ -43,10 +44,14 @@ $(function() {
             processResults: function(data) {
                 return {
                     results: $.map(data, function(item) {
-                        return {
+                        var img = '<img src="<?php echo base_url('uploads/products')?>/'+item.product_id+'/100_'+item.image+'" class="" loading="lazy" />' + item.name;
+                        // var img = "<span ><img src='<?php echo base_url('uploads/products')?>/"+item.product_id+"/100_"+item.image+"' c/>" + item.name+"</span >";
+                        return {                            
                             text: item.name,
-                            id: item.product_id
+                            id: item.product_id,
+                            
                         }
+                        
                     })
                 };
             },
@@ -761,4 +766,110 @@ function categoryBulkUpdateAction() {
         }
     });
 }
+
+function updateSorting(val, id) {
+    $.ajax({
+        url: '<?php echo base_url('product_category_sort_update_action') ?>',
+        type: "POST",
+        data: {
+            value: val,
+            prod_cat_id: id
+        },
+        success: function(data) {
+            $("#message").html(data);
+        }
+    });
+}
+
+function found_request_update(val,id){
+    $.ajax({
+        url: '<?php echo base_url('found_request_action') ?>',
+        type: "POST",
+        data: {
+            status: val,
+            found_request_id: id
+        },
+        success: function(data) {
+            $("#message").html(data);
+            $('#tablereload').load(document.URL + ' #example1');
+        }
+    });
+}
+
+function add_zone_detail() {
+    <?php $dat = getListInOption('', 'country_id', 'name', 'cc_country'); ?>
+    var data = `'<?php echo $dat; ?>'`;
+    var new_chq_no = parseInt($('#total_zone').val()) + 1;
+    var new_input = "<div class='col-md-12 mt-3' id='new_" + new_chq_no +
+        "' ><select class='form-input' name='country_id[]' onchange='zoneVal(this.value," + new_chq_no +
+        " )'  style='padding: 3px;width: 40%;' required><option value=''>Please select</option>" + data +
+        "</select> <select class='form-input' name='zone_id[]' id='valId_" + new_chq_no +
+        "' style='padding: 3px;width: 40%;' required><option value=''>Please select</option></select><input type='hidden' value='' name='geo_zone_details_id[]'> <a href='javascript:void(0)' onclick='remove_option(this)' class='btn btn-danger' style='margin-top: -5px;width: 5%;'>X</a></div>";
+
+    $('#new_zone').append(new_input);
+    $('#total_zone').val(new_chq_no);
+}
+
+function zoneVal(val,idview){
+    $.ajax({
+        method: "POST",
+        url: "<?php echo base_url('get_zone_value') ?>",
+        data: {
+            country_id: val
+        },
+        beforeSend: function() {
+            $("#loading-image").show();
+        },
+        success: function(data) {
+            $("#valId_" + idview).html(data);
+            // alert(data);
+        }
+
+    });
+}
+
+function deleteZone(details_id){
+    $.ajax({
+        method: "POST",
+        url: "<?php echo base_url('geo_zone_detail_delete') ?>",
+        data: {
+            geo_zone_details_id: details_id
+        },
+        beforeSend: function() {
+            $("#loading-image").show();
+        },
+        success: function(data) {
+            $("#mess").html(data);
+        }
+
+    });
+}
+
+
+function add_zone_rate(id) {
+    var new_chq_no = parseInt($('#total_item_'+id).val()) + 1;
+    var new_input = "<div class='col-md-12 mt-2'><input type='text' class='form-input' placeholder='Up To Value'  name='up_to_value[]' style='width: 40%;margin-right: 2px;'><input type='text' class='form-input'  name='cost[]' placeholder='Cost' style='width: 45%;margin-left: 3px;'><input type='hidden' value='"+id+"' name='geo_zone_id[]'><input type='hidden' value='' name='cc_geo_zone_shipping_rate_id[]'> <a href='javascript:void(0)' onclick='remove_option(this)' class='btn btn-danger' style='margin-top: -5px;width: 5%;'>X</a></div>";
+
+    $('#new_rate_'+id).append(new_input);
+    $('#total_item_'+id).val(new_chq_no);
+}
+
+function removeRate(id){
+    $.ajax({
+        method: "POST",
+        url: "<?php echo base_url('zone_rate_delete') ?>",
+        data: {
+            cc_geo_zone_shipping_rate_id: id
+        },
+        beforeSend: function() {
+            $("#loading-image").show();
+        },
+        success: function(data) {
+            $("#mess").html(data);
+        }
+
+    });
+}
+
+
 </script>
