@@ -299,6 +299,7 @@
                 $('#mesVal').html(response);
                 $('.message_alert').show();
                 setTimeout(function(){ $("#messAlt").fadeOut(1500);}, 600);
+                shippingCharge();
             }
         });
     }
@@ -314,6 +315,7 @@
                 $('#mesVal').html(response);
                 $('.message_alert').show();
                 setTimeout(function(){ $("#messAlt").fadeOut(1500);}, 600);
+                shippingCharge();
             }
         });
     }
