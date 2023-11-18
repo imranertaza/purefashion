@@ -1136,6 +1136,7 @@ function updateQty(rowid) {
             setTimeout(function() {
                 $("#messAlt").fadeOut(1500);
             }, 600);
+            shippingCharge();
         }
     });
 }
@@ -1159,6 +1160,7 @@ function removeCart(rowid) {
             setTimeout(function() {
                 $("#messAlt").fadeOut(1500);
             }, 600);
+            shippingCharge();
         }
     });
 }
