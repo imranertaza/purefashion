@@ -200,7 +200,7 @@ class Checkout extends BaseController
                 }
             }
 
-            
+
             DB()->transStart();
 
             if ($shipping_else == 'on') {
