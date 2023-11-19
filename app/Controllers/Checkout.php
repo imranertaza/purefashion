@@ -132,7 +132,7 @@ class Checkout extends BaseController
 
         $table = DB()->table('cc_zone');
         $data = $table->where('country_id', $country_id)->get()->getResult();
-        $options = '';
+        $options = '<option value="" >Please select</option>';
         foreach ($data as $value) {
             $options .= '<option value="' . $value->zone_id . '" ';
             $options .= '>' . $value->name . '</option>';
@@ -200,7 +200,7 @@ class Checkout extends BaseController
                 }
             }
 
-            
+
             DB()->transStart();
 
             if ($shipping_else == 'on') {
