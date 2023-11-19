@@ -1114,6 +1114,12 @@
             var totalAmount = tA;
         }
         var shipcityId = $('#sh_stateView').val();
+
+
+        $('#totalamo').val(totalAmount);
+        $('#total').html('<?php echo $symbol; ?> ' + totalAmount);
+        $('#check_total').html('<?php echo $symbol; ?> ' + totalAmount);
+
         <?php $symbol = get_lebel_by_value_in_settings('currency_symbol'); ?>
         $.ajax({
             method: "POST",
@@ -1132,6 +1138,7 @@
 
                 $('#chargeShip').html('<?php echo $symbol; ?> ' + data.charge);
                 $('#total').html('<?php echo $symbol; ?> ' + amount);
+                $('#totalamo').val(total);
                 $('#check_total').html('<?php echo $symbol; ?> ' + total);
                 $('#shipping_charge').val(charge);
                 $('#shipping_tot').val(amount);
