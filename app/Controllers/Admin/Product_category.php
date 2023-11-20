@@ -103,7 +103,7 @@ class Product_category extends BaseController
                 $namePic = $pic->getRandomName();
                 $pic->move($target_dir, $namePic);
                 $news_img = 'category_' . $pic->getName();
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(250, 150, 'center')->save($target_dir . '' . $news_img);
+                $this->crop->withFile($target_dir . '' . $namePic)->fit(166, 208, 'center')->save($target_dir . '' . $news_img);
                 unlink($target_dir . '' . $namePic);
                 $data['image'] = $news_img;
             }
@@ -150,6 +150,7 @@ class Product_category extends BaseController
     {
         $prod_cat_id = $this->request->getPost('prod_cat_id');
         $popular = $this->request->getPost('popular');
+        $shop_by = $this->request->getPost('shop_by');
         $data['category_name'] = $this->request->getPost('category_name');
         $data['icon_id'] = !empty($this->request->getPost('icon_id')) ? $this->request->getPost('icon_id') : null;
         $data['parent_id'] = !empty($this->request->getPost('parent_id')) ? $this->request->getPost('parent_id') : null;
@@ -179,6 +180,21 @@ class Product_category extends BaseController
                 }
             }
 
+            $checkShop = is_exists('cc_product_category_shop_by', 'prod_cat_id', $prod_cat_id);
+            if ($shop_by == 'on') {
+                if ($checkShop == true) {
+                    $shopData['prod_cat_id'] = $prod_cat_id;
+                    $tabShop = DB()->table('cc_product_category_shop_by');
+                    $tabShop->insert($shopData);
+                }
+            } else {
+                if ($checkShop == false) {
+                    $tabShop = DB()->table('cc_product_category_shop_by');
+                    $tabShop->where('prod_cat_id', $prod_cat_id)->delete();
+                }
+            }
+
+
             if (!empty($_FILES['image']['name'])) {
                 $target_dir = FCPATH . '/uploads/category/';
                 if (!file_exists($target_dir)) {
@@ -199,7 +215,7 @@ class Product_category extends BaseController
                 $namePic = $pic->getRandomName();
                 $pic->move($target_dir, $namePic);
                 $news_img = 'category_' . $pic->getName();
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(250, 150, 'center')->save($target_dir . '' . $news_img);
+                $this->crop->withFile($target_dir . '' . $namePic)->fit(166, 208, 'center')->save($target_dir . '' . $news_img);
                 unlink($target_dir . '' . $namePic);
                 $data['image'] = $news_img;
             }
@@ -273,5 +289,17 @@ class Product_category extends BaseController
 
         $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Delete Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
         return redirect()->to('product_category');
+    }
+
+    public function sort_update_action()
+    {
+        $prod_cat_id = $this->request->getPost('prod_cat_id');
+        $value = $this->request->getPost('value');
+
+        $data['sort_order'] = $value;
+
+        $table = DB()->table('cc_product_category');
+        $table->where('prod_cat_id', $prod_cat_id)->update($data);
+        print '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
     }
 }
