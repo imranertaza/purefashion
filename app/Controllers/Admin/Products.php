@@ -5,7 +5,6 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
 use App\Libraries\Theme_2;
-use App\Libraries\Theme_3;
 use App\Libraries\Theme_default;
 
 class Products extends BaseController
@@ -14,7 +13,7 @@ class Products extends BaseController
     protected $validation;
     protected $session;
     protected $permission;
-    protected $theme_3;
+
     protected $theme_2;
     protected $theme_default;
     protected $crop;
@@ -26,7 +25,6 @@ class Products extends BaseController
         $this->session = \Config\Services::session();
         $this->permission = new Permission();
         $this->crop = \Config\Services::image();
-        $this->theme_3 = new Theme_3();
         $this->theme_2 = new Theme_2();
         $this->theme_default = new Theme_default();
     }
@@ -88,9 +86,7 @@ class Products extends BaseController
 
     public function create_action() {
         $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
-            $theme_libraries = $this->theme_3;
-        }
+
         if($theme == 'Default'){
             $theme_libraries = $this->theme_default;
         }
@@ -470,9 +466,7 @@ class Products extends BaseController
 
     public function update_action(){
         $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
-            $theme_libraries = $this->theme_3;
-        }
+
         if($theme == 'Default'){
             $theme_libraries = $this->theme_default;
         }
@@ -987,7 +981,7 @@ class Products extends BaseController
         foreach ($data as $item) {
             $view .= '<option value="'.$item->option_value_id.'">'.$item->name.'</option>';
         }
-//        print_r($data);
+        
         print $view;
     }
 
