@@ -5,7 +5,6 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
 use App\Libraries\Theme_2;
-use App\Libraries\Theme_3;
 use App\Libraries\Theme_default;
 
 class Theme_settings extends BaseController
@@ -15,7 +14,7 @@ class Theme_settings extends BaseController
     protected $session;
     protected $crop;
     protected $permission;
-    protected $theme_3;
+
     protected $theme_2;
     protected $theme_default;
     private $module_name = 'Theme_settings';
@@ -26,7 +25,6 @@ class Theme_settings extends BaseController
         $this->session = \Config\Services::session();
         $this->crop = \Config\Services::image();
         $this->permission = new Permission();
-        $this->theme_3 = new Theme_3();
         $this->theme_2 = new Theme_2();
         $this->theme_default = new Theme_default();
     }
@@ -43,10 +41,7 @@ class Theme_settings extends BaseController
             $data['theme_settings'] = $table->get()->getResult();
 
             $theme = get_lebel_by_value_in_settings('Theme');
-            if($theme == 'Theme_3'){
-                $data['theme_libraries'] = $this->theme_3;
-                $data['theme_view'] = view('Admin/Theme_settings/theme_3', $data);
-            }
+
 
             if($theme == 'Default'){
                 $data['theme_libraries'] = $this->theme_default;
@@ -79,9 +74,7 @@ class Theme_settings extends BaseController
         $nameslider = $this->request->getPost('nameslider');
 
         $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
-            $theme_libraries = $this->theme_3;
-        }
+
         if($theme == 'Default'){
             $theme_libraries = $this->theme_default;
         }
@@ -121,9 +114,7 @@ class Theme_settings extends BaseController
     public function logo_update()
     {
         $theme = get_lebel_by_value_in_settings('Theme');
-        if($theme == 'Theme_3'){
-            $theme_libraries = $this->theme_3;
-        }
+
         if($theme == 'Default'){
             $theme_libraries = $this->theme_default;
         }

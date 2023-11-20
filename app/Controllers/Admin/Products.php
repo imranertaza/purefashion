@@ -981,7 +981,7 @@ class Products extends BaseController
         foreach ($data as $item) {
             $view .= '<option value="'.$item->option_value_id.'">'.$item->name.'</option>';
         }
-        
+
         print $view;
     }
 
