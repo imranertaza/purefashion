@@ -4,6 +4,8 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use App\Libraries\Theme_2;
+use App\Libraries\Theme_default;
 
 class Products extends BaseController
 {
@@ -11,6 +13,9 @@ class Products extends BaseController
     protected $validation;
     protected $session;
     protected $permission;
+
+    protected $theme_2;
+    protected $theme_default;
     protected $crop;
     private $module_name = 'Products';
 
@@ -20,6 +25,8 @@ class Products extends BaseController
         $this->session = \Config\Services::session();
         $this->permission = new Permission();
         $this->crop = \Config\Services::image();
+        $this->theme_2 = new Theme_2();
+        $this->theme_default = new Theme_default();
     }
 
     public function index()
@@ -78,6 +85,14 @@ class Products extends BaseController
     }
 
     public function create_action() {
+        $theme = get_lebel_by_value_in_settings('Theme');
+
+        if($theme == 'Default'){
+            $theme_libraries = $this->theme_default;
+        }
+        if($theme == 'Theme_2'){
+            $theme_libraries = $this->theme_2;
+        }
 
         $adUserId = $this->session->adUserId;
 
@@ -139,11 +154,13 @@ class Products extends BaseController
                 $namePic = $pic->getRandomName();
                 $pic->move($target_dir, $namePic);
                 $news_img = 'pro_' . $pic->getName();
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(191, 191, 'center')->save($target_dir . '191_'.$news_img);
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(198, 198, 'center')->save($target_dir . '198_'.$news_img);
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(100, 100, 'center')->save($target_dir . '100_'.$news_img);
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(437, 400, 'center')->save($target_dir . '437_'.$news_img);
-
+                // $this->crop->withFile($target_dir . '' . $namePic)->fit(191, 191, 'center')->save($target_dir . '191_'.$news_img);
+                // $this->crop->withFile($target_dir . '' . $namePic)->fit(198, 198, 'center')->save($target_dir . '198_'.$news_img);
+                // $this->crop->withFile($target_dir . '' . $namePic)->fit(100, 100, 'center')->save($target_dir . '100_'.$news_img);
+                // $this->crop->withFile($target_dir . '' . $namePic)->fit(437, 400, 'center')->save($target_dir . '437_'.$news_img);
+                foreach($theme_libraries->product_image as $pro_img){
+                    $this->crop->withFile($target_dir . '' . $namePic)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir . $pro_img['width'].'_'.$news_img);
+                } 
                 $dataImg['image'] = $news_img;
 
                 $proUpTable = DB()->table('cc_products');
@@ -178,11 +195,10 @@ class Products extends BaseController
                         $nameMulPic = $file->getRandomName();
                         $file->move($target_dir2, $nameMulPic);
                         $news_img2 = 'pro_' . $file->getName();
-                        $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit(191, 191, 'center')->save($target_dir2 . '191_'.$news_img2);
-                        $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit(198, 198, 'center')->save($target_dir2 . '198_'.$news_img2);
-                        $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit(100, 100, 'center')->save($target_dir2 . '100_'.$news_img2);
-                        $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit(437, 400, 'center')->save($target_dir2 . '437_'.$news_img2);
-
+                        
+                        foreach($theme_libraries->product_image as $pro_img){
+                            $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir2 . $pro_img['width'].'_'.$news_img2);
+                        } 
 
                         $dataMultiImg2['image'] = $news_img2;
 
@@ -295,24 +311,7 @@ class Products extends BaseController
             $proDescTable = DB()->table('cc_product_description');
             $proDescTable->insert($proDescData);
             //product description table data insert(end)
-
-
-
-            //product options table data insert(start)
-//            $color = $this->request->getPost('color[]');
-//            $size = $this->request->getPost('size[]');
-//            $qty = $this->request->getPost('qty[]');
-//            if (!empty($qty)){
-//                foreach ($qty as $key => $val){
-//                    $optionData['product_id'] = $productId;
-//                    $optionData['color_family_id'] = $color[$key];
-//                    $optionData['size'] = $size[$key];
-//                    $optionData['quantity'] = $qty[$key];
-//
-//                    $optionTable = DB()->table('cc_product_options');
-//                    $optionTable->insert($optionData);
-//                }
-//            }
+            
 
             $option = $this->request->getPost('option[]');
             $opValue = $this->request->getPost('opValue[]');
@@ -466,6 +465,14 @@ class Products extends BaseController
     }
 
     public function update_action(){
+        $theme = get_lebel_by_value_in_settings('Theme');
+
+        if($theme == 'Default'){
+            $theme_libraries = $this->theme_default;
+        }
+        if($theme == 'Theme_2'){
+            $theme_libraries = $this->theme_2;
+        }
 
         $adUserId = $this->session->adUserId;
 
@@ -507,6 +514,8 @@ class Products extends BaseController
             $product_featured = $this->request->getPost('product_featured');
             if ($product_featured == 'on'){
                 $proData['featured'] = '1';
+            }else{
+                $proData['featured'] = '0';
             }
 
             $proTable = DB()->table('cc_products');
@@ -549,11 +558,9 @@ class Products extends BaseController
                 $namePic = $pic->getRandomName();
                 $pic->move($target_dir, $namePic);
                 $news_img = 'pro_' . $pic->getName();
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(191, 191, 'center')->save($target_dir . '191_'.$news_img);
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(198, 198, 'center')->save($target_dir . '198_'.$news_img);
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(100, 100, 'center')->save($target_dir . '100_'.$news_img);
-                $this->crop->withFile($target_dir . '' . $namePic)->fit(437, 400, 'center')->save($target_dir . '437_'.$news_img);
-
+                foreach($theme_libraries->product_image as $pro_img){
+                    $this->crop->withFile($target_dir . '' . $namePic)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir . $pro_img['width'].'_'.$news_img);
+                } 
                 $dataImg['image'] = $news_img;
 
                 $proUpTable = DB()->table('cc_products');
@@ -571,7 +578,7 @@ class Products extends BaseController
                 }
 
                 $files = $this->request->getFileMultiple('multiImage');
-                foreach ($files as $file) {
+                foreach ($files as $key => $file) {
 
                     if ($file->isValid() && ! $file->hasMoved())
                     {
@@ -588,11 +595,10 @@ class Products extends BaseController
                         $nameMulPic = $file->getRandomName();
                         $file->move($target_dir2, $nameMulPic);
                         $news_img2 = 'pro_' . $file->getName();
-                        $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit(191, 191, 'center')->save($target_dir2 . '191_'.$news_img2);
-                        $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit(198, 198, 'center')->save($target_dir2 . '198_'.$news_img2);
-                        $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit(100, 100, 'center')->save($target_dir2 . '100_'.$news_img2);
-                        $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit(437, 400, 'center')->save($target_dir2 . '437_'.$news_img2);
 
+                        foreach($theme_libraries->product_image as $pro_img){
+                            $this->crop->withFile($target_dir2 . '' . $nameMulPic)->fit($pro_img['width'], $pro_img['height'], 'center')->save($target_dir2 . $pro_img['width'].'_'.$news_img2);
+                        } 
 
                         $dataMultiImg2['image'] = $news_img2;
 
@@ -975,7 +981,7 @@ class Products extends BaseController
         foreach ($data as $item) {
             $view .= '<option value="'.$item->option_value_id.'">'.$item->name.'</option>';
         }
-//        print_r($data);
+
         print $view;
     }
 

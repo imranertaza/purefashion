@@ -4,6 +4,8 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
 use App\Libraries\Permission;
+use App\Libraries\Theme_2;
+use App\Libraries\Theme_default;
 
 class Theme_settings extends BaseController
 {
@@ -12,6 +14,9 @@ class Theme_settings extends BaseController
     protected $session;
     protected $crop;
     protected $permission;
+
+    protected $theme_2;
+    protected $theme_default;
     private $module_name = 'Theme_settings';
 
     public function __construct()
@@ -20,6 +25,8 @@ class Theme_settings extends BaseController
         $this->session = \Config\Services::session();
         $this->crop = \Config\Services::image();
         $this->permission = new Permission();
+        $this->theme_2 = new Theme_2();
+        $this->theme_default = new Theme_default();
     }
 
     public function index()
@@ -29,9 +36,21 @@ class Theme_settings extends BaseController
         if (!isset($isLoggedInEcAdmin) || $isLoggedInEcAdmin != TRUE) {
             return redirect()->to(site_url('admin'));
         } else {
-
+           
             $table = DB()->table('cc_theme_settings');
             $data['theme_settings'] = $table->get()->getResult();
+
+            $theme = get_lebel_by_value_in_settings('Theme');
+
+
+            if($theme == 'Default'){
+                $data['theme_libraries'] = $this->theme_default;
+                $data['theme_view'] = view('Admin/Theme_settings/default', $data);
+            }
+            if($theme == 'Theme_2'){
+                $data['theme_libraries'] = $this->theme_2;
+                $data['theme_view'] = view('Admin/Theme_settings/theme_2', $data);
+            }
 
 
             //$perm = array('create','read','update','delete','mod_access');
@@ -54,6 +73,16 @@ class Theme_settings extends BaseController
     {
         $nameslider = $this->request->getPost('nameslider');
 
+        $theme = get_lebel_by_value_in_settings('Theme');
+
+        if($theme == 'Default'){
+            $theme_libraries = $this->theme_default;
+        }
+        if($theme == 'Theme_2'){
+            $theme_libraries = $this->theme_2;
+        }
+
+
         if (!empty($_FILES['slider']['name'])) {
             $target_dir = FCPATH . '/uploads/slider/';
             if (!file_exists($target_dir)) {
@@ -65,7 +94,7 @@ class Theme_settings extends BaseController
             $namePic = $pic->getRandomName();
             $pic->move($target_dir, $namePic);
             $news_img = 'slider_' . $pic->getName();
-            $this->crop->withFile($target_dir . '' . $namePic)->fit(837, 394, 'center')->save($target_dir . '' . $news_img);
+            $this->crop->withFile($target_dir . '' . $namePic)->fit($theme_libraries->slider_width, $theme_libraries->slider_height, 'center')->save($target_dir . '' . $news_img);
             unlink($target_dir . '' . $namePic);
             $data['value'] = $news_img;
 
@@ -84,6 +113,14 @@ class Theme_settings extends BaseController
 
     public function logo_update()
     {
+        $theme = get_lebel_by_value_in_settings('Theme');
+
+        if($theme == 'Default'){
+            $theme_libraries = $this->theme_default;
+        }
+        if($theme == 'Theme_2'){
+            $theme_libraries = $this->theme_2;
+        }
 
         if (!empty($_FILES['side_logo']['name'])) {
             $target_dir = FCPATH . '/uploads/logo/';
@@ -156,7 +193,7 @@ class Theme_settings extends BaseController
 
         if ($this->validation->run($data) == FALSE) {
             $this->session->setFlashdata('message', '<div class="alert alert-danger alert-dismissible" role="alert">' . $this->validation->listErrors() . ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('theme_settings');
+            return redirect()->to('theme_settings?sel=home_settings');
         } else {
 
 
@@ -164,7 +201,7 @@ class Theme_settings extends BaseController
             $table->where('label', 'home_category')->update($data);
 
             $this->session->setFlashdata('message', '<div class="alert alert-success alert-dismissible" role="alert">Update Record Success <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-            return redirect()->to('theme_settings');
+            return redirect()->to('theme_settings?sel=home_settings');
         }
 
 

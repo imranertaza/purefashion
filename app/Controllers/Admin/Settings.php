@@ -58,6 +58,7 @@ class Settings extends BaseController
         $data['email'] = $this->request->getPost('email');
         $data['phone'] = $this->request->getPost('phone');
         $data['Theme'] = $this->request->getPost('Theme');
+        $data['category_product_limit'] = $this->request->getPost('category_product_limit');
 
         $data['country'] = $this->request->getPost('country');
         $data['state'] = $this->request->getPost('state');
@@ -110,20 +111,6 @@ class Settings extends BaseController
         return redirect()->to('settings');
 
 
-    }
-    
-    public function country_zoon()
-    {
-        $country_id = $this->request->getPost('country_id');
-
-        $table = DB()->table('cc_zone');
-        $data = $table->where('country_id', $country_id)->get()->getResult();
-        $options = '';
-        foreach ($data as $value) {
-            $options .= '<option value="' . $value->zone_id . '" ';
-            $options .= '>' . $value->name . '</option>';
-        }
-        print $options;
     }
 
 
