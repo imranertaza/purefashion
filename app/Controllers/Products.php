@@ -121,6 +121,11 @@ class Products extends BaseController {
         $table = DB()->table('cc_product_category');
         $data['main_Cat'] = $table->where('parent_id',null)->get()->getResult();
 
+        $data['keywords'] = 'Category Search';
+        $data['description'] = 'Category Search';
+        $data['title'] = (!empty($cat_id))?get_data_by_id('category_name','cc_product_category','prod_cat_id',$cat_id):'Products Search';
+
+
 
         $data['prod_cat_id'] = $cat_id;
         $data['page_title'] = 'Category products';

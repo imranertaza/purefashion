@@ -29,6 +29,10 @@ class Order extends BaseController
             $table = DB()->table('cc_order');
             $data['order'] = $table->where('customer_id',$this->session->cusUserId)->get()->getResult();
 
+            $data['keywords'] = 'Customer Order';
+            $data['description'] = 'Customer Order';
+            $data['title'] = 'Customer Order';
+
             $data['menu_active'] = 'order';
             $data['page_title'] = 'My Order';
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
@@ -48,6 +52,10 @@ class Order extends BaseController
 
             $tableItem = DB()->table('cc_order_item');
             $data['orderItem'] = $tableItem->where('order_id',$order_id)->get()->getResult();
+
+            $data['keywords'] = 'Customer Invoice';
+            $data['description'] = 'Customer Invoice';
+            $data['title'] = 'Customer Invoice';
 
             $data['menu_active'] = 'order';
             $data['page_title'] = 'Invoice';

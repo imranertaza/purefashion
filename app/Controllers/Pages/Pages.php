@@ -19,6 +19,11 @@ class Pages extends BaseController {
         $table = DB()->table('cc_pages');
         $page = $table->where('slug',$slug)->get()->getRow();
 
+
+        $data['keywords'] = $page->meta_keyword;
+        $data['description'] = $page->meta_description;
+        $data['title'] = $page->meta_title;
+
         $data['page_title'] = $page->page_title;
         $data['pageData'] = $page;
 
