@@ -31,9 +31,9 @@ class Favorite extends BaseController
             $data['pager'] = $this->favoriteModel->pager;
             $data['links'] = $data['pager']->links('default','custome_link');
 
-            $data['keywords'] = 'Customer Favorite';
-            $data['description'] = 'Customer Favorite';
-            $data['title'] = 'Customer Favorite';
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Favorite';
 
             $data['menu_active'] = 'favorite';
             $data['page_title'] = 'Favorite';

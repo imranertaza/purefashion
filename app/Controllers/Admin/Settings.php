@@ -58,7 +58,7 @@ class Settings extends BaseController
         $data['email'] = $this->request->getPost('email');
         $data['phone'] = $this->request->getPost('phone');
         $data['Theme'] = $this->request->getPost('Theme');
-        $data['category_product_limit'] = $this->request->getPost('category_product_limit');
+//        $data['category_product_limit'] = $this->request->getPost('category_product_limit');
 
         $data['country'] = $this->request->getPost('country');
         $data['state'] = $this->request->getPost('state');
@@ -84,6 +84,11 @@ class Settings extends BaseController
         $data['twitter_url'] = $this->request->getPost('twitter_url');
         $data['tiktok_url'] = $this->request->getPost('tiktok_url');
         $data['instagram_url'] = $this->request->getPost('instagram_url');
+
+
+        $data['meta_title'] = $this->request->getPost('meta_title');
+        $data['meta_keyword'] = $this->request->getPost('meta_keyword');
+        $data['meta_description'] = $this->request->getPost('meta_description');
 
 //        if (!empty($_FILES['store_logo']['name'])) {
 //            $target_dir = FCPATH . '/uploads/store/';

@@ -16,9 +16,9 @@ class Login extends BaseController {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
 
-            $data['keywords'] = 'Sign In';
-            $data['description'] = 'Sign In';
-            $data['title'] = 'Sign In';
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Account Login';
 
             $data['page_title'] = 'Sign In';
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
@@ -100,9 +100,10 @@ class Login extends BaseController {
         $isLoggedInCustomer = $this->session->isLoggedInCustomer;
         if (!isset($isLoggedInCustomer) || $isLoggedInCustomer != TRUE) {
 
-            $data['keywords'] = 'Sign up';
-            $data['description'] = 'Sign up';
-            $data['title'] = 'Sign up';
+            $data['page_title'] = 'Register Account';
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Register Account';
 
 
             $data['page_title'] = 'Sign up';
@@ -171,8 +172,8 @@ class Login extends BaseController {
 
     public function forgotPassword(){
         $data['title'] = 'Forgot password';
-        $data['keywords'] = 'Forgot password';
-        $data['description'] = 'Forgot password';
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
 
         $data['page_title'] = 'Forgot Password';
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
@@ -214,8 +215,8 @@ class Login extends BaseController {
     public function otp_submit(){
         if ($this->session->forgetPassword == true) {
             $data['title'] = 'Otp Submit';
-            $data['keywords'] = 'Otp Submit';
-            $data['description'] = 'Otp Submit';
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
 
             $data['page_title'] = 'Otp Submit';
             echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);
@@ -239,8 +240,8 @@ class Login extends BaseController {
 
     public function password_reset(){
         $data['title'] = 'Reset password';
-        $data['keywords'] = 'Reset password';
-        $data['description'] = 'Reset password';
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
 
         $data['page_title'] = 'Reset password';
         echo view('Theme/' . get_lebel_by_value_in_settings('Theme') . '/header', $data);

@@ -29,9 +29,9 @@ class Order extends BaseController
             $table = DB()->table('cc_order');
             $data['order'] = $table->where('customer_id',$this->session->cusUserId)->get()->getResult();
 
-            $data['keywords'] = 'Customer Order';
-            $data['description'] = 'Customer Order';
-            $data['title'] = 'Customer Order';
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Order List';
 
             $data['menu_active'] = 'order';
             $data['page_title'] = 'My Order';
@@ -53,9 +53,9 @@ class Order extends BaseController
             $tableItem = DB()->table('cc_order_item');
             $data['orderItem'] = $tableItem->where('order_id',$order_id)->get()->getResult();
 
-            $data['keywords'] = 'Customer Invoice';
-            $data['description'] = 'Customer Invoice';
-            $data['title'] = 'Customer Invoice';
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Invoice';
 
             $data['menu_active'] = 'order';
             $data['page_title'] = 'Invoice';
