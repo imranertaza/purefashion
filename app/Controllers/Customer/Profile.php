@@ -32,6 +32,10 @@ class Profile extends BaseController
             $table = DB()->table('cc_address');
             $data['address'] = $table->where('customer_id',$this->session->cusUserId)->get()->getRow();
 
+            $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+            $data['description'] = get_lebel_by_value_in_settings('meta_description');
+            $data['title'] = 'Profile';
+
             $data['menu_active'] = 'profile';
             $data['page_title'] = 'Profile';
             echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);

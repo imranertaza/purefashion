@@ -99,8 +99,8 @@
                                                     $catSel = get_lebel_by_value_in_theme_settings('hot_deals_category');
                                                     foreach ($cat as $val){
                                                         ?>
-                    <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo $val->category_name;?>
+                    <option value="<?php echo $val->prod_cat_id;?>"  <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?> >
+                        <?php echo display_category_with_parent($val->prod_cat_id);?>
                     </option>
                     <?php } ?>
                 </select>
@@ -121,7 +121,7 @@
                                                     foreach ($cat as $val){
                                                         ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo $val->category_name;?>
+                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
                     </option>
                     <?php } ?>
                 </select>
@@ -142,7 +142,7 @@
                                                     foreach ($cat as $val){
                                                         ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo $val->category_name;?>
+                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
                     </option>
                     <?php } ?>
                 </select>
@@ -162,7 +162,7 @@
                                                     foreach ($cat as $val){
                                                         ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo $val->category_name;?>
+                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
                     </option>
                     <?php } ?>
                 </select>
@@ -182,7 +182,7 @@
                                                     foreach ($cat as $val){
                                                         ?>
                     <option value="<?php echo $val->prod_cat_id;?>"
-                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo $val->category_name;?>
+                        <?php echo ($val->prod_cat_id == $catSel)?'selected':'';?>><?php echo display_category_with_parent($val->prod_cat_id);?>
                     </option>
                     <?php } ?>
                 </select>
