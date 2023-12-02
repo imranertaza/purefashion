@@ -37,6 +37,11 @@ class Category extends BaseController {
 
         $data['prod_cat_id'] = $cat_id;
         $data['page_title'] = 'Category products';
+
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = get_data_by_id('category_name','cc_product_category','prod_cat_id',$cat_id);
+
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Category/index',$data);
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/footer', $data);

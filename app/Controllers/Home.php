@@ -73,6 +73,10 @@ class Home extends BaseController {
         $tableBrand = DB()->table('cc_brand');
         $data['brand'] = $tableBrand->get()->getResult();
 
+        $data['keywords'] = get_lebel_by_value_in_settings('meta_keyword');
+        $data['description'] = get_lebel_by_value_in_settings('meta_description');
+        $data['title'] = !empty(get_lebel_by_value_in_settings('meta_title'))?get_lebel_by_value_in_settings('meta_title'):get_lebel_by_value_in_settings('store_name');
+
         $data['home_menu'] = true;
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/header',$data);
         echo view('Theme/'.get_lebel_by_value_in_settings('Theme').'/Home/index',$data);
