@@ -57,7 +57,7 @@ class Category extends BaseController {
         $brand = $this->request->getPost('manufacturer[]');
         $rating = $this->request->getPost('rating[]');
         $price = $this->request->getPost('price');
-
+        $show = $this->request->getPost('show');
 
 
         $vars = array();
@@ -87,6 +87,9 @@ class Category extends BaseController {
 
         if (!empty($price)){
             $vars ['price'] = $price;
+        }
+        if (!empty($show)){
+            $vars ['show'] = $show;
         }
 
         if (!empty($rating)) {
