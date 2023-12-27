@@ -1,6 +1,6 @@
 <section class="main-container my-5">
     <div class="container">
-        <form action="<?php echo base_url('profile_update_action')?>" method="Post" >
+        <form action="<?php echo base_url('profile_update_action')?>" method="Post" onsubmit="return onProfileForm()">
         <div class="card border rounded-0">
             <div class="card-body p-3 p-md-5">
                 <div class="row mb-4">
@@ -11,23 +11,27 @@
                         <h6 class="mt-4">Contact information</h6>
                         <div class="form-group mt-4">
                             <label>First Name</label>
-                            <input type="text" name="firstname" class="form-control" placeholder="First Name" value="<?php echo $customer->firstname?>" required>
+                            <input type="text" name="firstname" class="form-control  in_err" id="fname1"  placeholder="First Name" value="<?php echo $customer->firstname?>" required>
+                            <span class="text-danger err d-inline-block text-capitalize" id="fnameError"></span>
                         </div>
 
                         <div class="form-group mt-4">
                             <label>Last Name</label>
-                            <input type="text" name="lastname" class="form-control" placeholder="Last Name" value="<?php echo $customer->lastname?>" required>
+                            <input type="text" name="lastname" class="form-control in_err" id="lname1"  placeholder="Last Name" value="<?php echo $customer->lastname?>" required>
+                            <span class="text-danger err d-inline-block text-capitalize " id="lnameError"></span>
                         </div>
 
                         <div class="form-group mt-4">
                             <label>Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email" value="<?php echo $customer->email?>" required>
+                            <input type="email" name="email" class="form-control in_err" id="email" placeholder="Email" value="<?php echo $customer->email?>" required>
+                            <span class="text-danger err d-inline-block text-capitalize " id="emailError"></span>
                         </div>
 
 
                         <div class="form-group mt-4">
                             <label>Phone</label>
-                            <input type="text" name="phone" class="form-control" placeholder="Phone" value="<?php echo $customer->phone?>" required>
+                            <input type="text" name="phone" class="form-control in_err" id="payment_phone"  placeholder="Phone" value="<?php echo $customer->phone?>" required>
+                            <span class="text-danger err d-inline-block text-capitalize" id="paymentPhoneError"></span>
                         </div>
 
 
@@ -38,35 +42,40 @@
                         <h6 class="mt-4">Address</h6>
                         <div class="form-group mt-4">
                             <label>Address line 1 <span>*</span></label>
-                            <input type="text" name="address_1" class="form-control" placeholder="Address line 1" value="<?php echo !empty($address->address_1)?$address->address_1:'';?>" required>
+                            <input type="text" name="address_1" class="form-control in_err" id="payment_address_1" placeholder="Address line 1" value="<?php echo !empty($address->address_1)?$address->address_1:'';?>" required>
+                            <span class="text-danger err d-inline-block text-capitalize" id="paymentAddressError"></span>
                         </div>
 
                         <div class="form-group mt-4">
                             <label>Address line 2 </label>
-                            <input type="text" name="address_2" class="form-control" placeholder="Address line 2" value="<?php echo !empty($address->address_2)?$address->address_2:'';?>" >
+                            <input type="text" name="address_2" class="form-control in_err" id="payment_address_2" placeholder="Address line 2" value="<?php echo !empty($address->address_2)?$address->address_2:'';?>" >
+                            <span class="text-danger err d-inline-block text-capitalize" id="paymentAddress2Error"></span>
                         </div>
 
 
                         <div class="form-group mt-4">
                             <label class="w-100" for="phone">Country</label>
-                            <select name="country_id" class="form-control" onchange="selectState(this.value,'stateView')" required>
+                            <select name="country_id" class="form-control in_err" id="countryName1"  onchange="selectState(this.value,'stateView')" required>
                                 <option value="" >Please select</option>
                                 <?php echo country(!empty($address->country_id)?$address->country_id:'');?>
                             </select>
+                            <span class="text-danger err d-inline-block text-capitalize" id="countryNamePhoneError"></span>
                         </div>
 
                         <div class="form-group mt-4">
                             <label class="w-100" for="payment_city">District</label>
-                            <select name="zone_id" class="form-control" id="stateView" required >
+                            <select name="zone_id" class="form-control in_err" id="stateView" required >
                                 <option value="" >Please select</option>
                                 <?php echo state_with_country(!empty($address->country_id)?$address->country_id:'',!empty($address->zone_id)?$address->zone_id:'');?>
                             </select>
+                            <span class="text-danger err d-inline-block text-capitalize" id="stateViewPhoneError"></span>
                         </div>
 
 
                         <div class="form-group mt-4">
                             <label>Postal code <span>*</span></label>
-                            <input type="text" name="postcode" class="form-control" placeholder="Postal code" value="<?php echo !empty($address->postcode)?$address->postcode:'';?>" required>
+                            <input type="text" name="postcode" id="payment_postcode" class="form-control in_err" placeholder="Postal code" value="<?php echo !empty($address->postcode)?$address->postcode:'';?>" required>
+                            <span class="text-danger err d-inline-block text-capitalize" id="paymentPostcodeError"></span>
                         </div>
 
 
