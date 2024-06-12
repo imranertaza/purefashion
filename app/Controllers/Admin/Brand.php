@@ -199,6 +199,9 @@ class Brand extends BaseController
             }
         }
 
+        $upBrand['brand_id'] = null;
+        $tablePro = DB()->table('cc_products');
+        $tablePro->where('brand_id', $brand_id)->update($upBrand);
 
         $table = DB()->table('cc_brand');
         $table->where('brand_id', $brand_id)->delete();
