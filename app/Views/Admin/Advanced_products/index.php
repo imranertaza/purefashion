@@ -18,7 +18,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <form action="<?= base_url('bulk_product_multi_delete')?>" method="post">
+<!--        <form action="--><?php //= base_url('bulk_product_multi_delete')?><!--" method="post">-->
         <!-- Default box -->
         <div class="card">
             <div class="card-header">
@@ -268,7 +268,7 @@
             <!-- /.card-footer-->
         </div>
         <!-- /.card -->
-        </form>
+<!--        </form>-->
 
     </section>
     <!-- /.content -->
