@@ -373,6 +373,11 @@
         });
     })
 </script>
+<?php
+$minP = isset($price)?$price['minPrice']:0;
+$maxP = isset($price)?$price['maxPrice']:0;
+
+?>
 <script>
     $(document).scroll(function() {
         var y = $(this).scrollTop();
@@ -422,10 +427,10 @@
     jQuery(function($) {
         $(".slider-range").slider({
             range: true,
-            min: 0,
-            max: 10000,
-            values: [<?php print isset($fstprice) ? $fstprice : 5; ?>,
-                <?php print isset($lstPrice) ? $lstPrice : 6000; ?>
+            min: <?php print $minP; ?>,
+            max: <?php print $maxP; ?>,
+            values: [<?php print isset($fstprice) ? $fstprice : $minP; ?>,
+                <?php print isset($lstPrice) ? $lstPrice : $maxP; ?>
             ],
             slide: function(event, ui) {
                 $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
