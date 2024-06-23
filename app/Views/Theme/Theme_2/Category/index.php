@@ -185,8 +185,8 @@
         if (!empty($par_id)){
             $url = base_url('category/'.$par_id);
             echo '<a href="'.$url.'">'.get_data_by_id('category_name','cc_product_category','prod_cat_id',$par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
-        }
-        ?> <?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);}else{ echo 'All Category';} ?></span>
+        } $url2 = base_url('category/' . $prod_cat_id);
+        ?> <a href="<?php echo $url2;?>" > <?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);}else{ echo 'All Category';} ?></a></span>
                                 </div>
                                     <div class="card p-3 rounded-0 ">
                                         <div class="product-filter">
@@ -217,7 +217,8 @@
 
                                             <?php } }?>
                                         </div>
-                                        <div class="product-filter">
+                                        <?php if (!empty($productsArr)){ ?>
+                                        <div class="product-filter" style="padding-right: 20px;">
                                             <p class="mb-2">Filter Price</p>
                                             <p>
                                                 <input type="text" id="amount"  readonly style="border:0;">
@@ -225,36 +226,11 @@
                                             </p>
                                             <div class="slider-range" ></div>
                                         </div>
-                                        <?php
-        $i=1;
-        foreach(get_all_data_array('cc_option') as $op){  ?>
-                                        <div class="product-filter">
-                                            <p class="mb-2"><?php echo $op->name;?></p>
-                                            <ul class="list-unstyled filter-items">
-                                                <?php foreach(get_array_data_by_id('cc_option_value','option_id',$op->option_id) as $key=>$opVal){
+                                        <?php } ?>
 
-        $nameVal = get_data_by_id('name','cc_option_value','option_value_id',$opVal->option_value_id);
-        $firstCar =  mb_substr($nameVal, 0, 1); $length = strlen($nameVal);
-        $isColor = (($firstCar == '#') && ($length == 7))?'':$nameVal;
-        $nameOp = !empty($isColor)?$isColor:'';
-        $style = empty($isColor)?"background-color: $nameVal !important;padding: 15px; border: unset;":"";
-        ?>
+                                        <?php echo $optionView; ?>
 
-                                                <li class="mt-2"><input type="checkbox" onclick="formSubmit()"  class="btn-check" <?php foreach ($optionval as $vSel){ echo ($vSel == $opVal->option_value_id)?'checked':'';} ?> name="options[]" id="option_<?php echo $opVal->name; ?>" value="<?php echo $opVal->option_value_id?>"  autocomplete="off">
-                                                    <label class="btn btn-outline-secondary rounded-0" style="<?php echo $style;?>"   for="option_<?php echo $opVal->name; ?>"><?php  echo $nameOp; ?></label></li>
-                                                <?php } ?>
-                                            </ul>
-                                        </div>
-                                        <?php $i++; } ?>
-
-                                        <div class="product-filter">
-                                            <p class="mb-2">Brands</p>
-                                            <?php foreach(get_all_data_array('cc_brand') as $bra){ ?>
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" name="manufacturer[]" <?php foreach ($brandval as $bSel){ echo ($bSel == $bra->brand_id)?'checked':'';} ?>  value="<?php echo $bra->brand_id?>"> <?php echo $bra->name?>
-                                            </label>
-                                            <?php } ?>
-                                        </div>
+                                        <?php echo $brandView;?>
 
                                         <div class="product-filter">
                                             <p class="mb-2">Rating</p>
@@ -330,8 +306,8 @@
         if (!empty($par_id)){
             $url = base_url('category/'.$par_id);
             echo '<a href="'.$url.'">'.get_data_by_id('category_name','cc_product_category','prod_cat_id',$par_id).'</a> <i class="fa-solid fa-angle-right"></i>';
-        }
-        ?> <?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);}else{ echo 'All Category';} ?></span>
+        } $url2 = base_url('category/' . $prod_cat_id);
+        ?> <a href="<?php echo $url2;?>" > <?php echo get_data_by_id('category_name','cc_product_category','prod_cat_id',$prod_cat_id);}else{ echo 'All Category';} ?></span></a>
                                         </div>
                                         <div class="card p-3 rounded-0 ">
                                             <div class="product-filter">
@@ -362,44 +338,19 @@
 
                                                 <?php } }?>
                                             </div>
-                                            <div class="product-filter">
-                                                <p class="mb-2">Filter Price</p>
-                                                <p>
-                                                    <input type="text" id="amount"  readonly style="border:0;">
+                                            <?php if (!empty($productsArr)){ ?>
+                                        <div class="product-filter">
+                                            <p class="mb-2">Filter Price</p>
+                                            <p>
+                                                <input type="text" id="amount"  readonly style="border:0;">
                                                     <input type="hidden" name="price" id="price"  >
-                                                </p>
-                                                <div class="slider-range" ></div>
-                                            </div>
-                                            <?php
-        $i=1;
-        foreach(get_all_data_array('cc_option') as $op){  ?>
-                                            <div class="product-filter">
-                                                <p class="mb-2"><?php echo $op->name;?></p>
-                                                <ul class="list-unstyled filter-items">
-                                                    <?php foreach(get_array_data_by_id('cc_option_value','option_id',$op->option_id) as $key=>$opVal){
+                                            </p>
+                                            <div class="slider-range" ></div>
+                                        </div>
+                                        <?php } ?>
+                                            <?php echo $optionView; ?>
 
-        $nameVal = get_data_by_id('name','cc_option_value','option_value_id',$opVal->option_value_id);
-        $firstCar =  mb_substr($nameVal, 0, 1); $length = strlen($nameVal);
-        $isColor = (($firstCar == '#') && ($length == 7))?'':$nameVal;
-        $nameOp = !empty($isColor)?$isColor:'';
-        $style = empty($isColor)?"background-color: $nameVal;padding: 15px; border: unset;":"";
-        ?>
-
-                                                    <li class="mt-2"><input type="checkbox" onclick="formSubmit()"  class="btn-check" <?php foreach ($optionval as $vSel){ echo ($vSel == $opVal->option_value_id)?'checked':'';} ?> name="options[]" id="option_<?php echo $opVal->name; ?>" value="<?php echo $opVal->option_value_id?>"  autocomplete="off">
-                                                        <label class="btn btn-outline-secondary" style="<?php echo $style;?>"   for="option_<?php echo $opVal->name; ?>"><?php  echo $nameOp; ?></label></li>
-                                                    <?php } ?>
-                                                </ul>
-                                            </div>
-                                            <?php $i++; } ?>
-
-                                            <div class="product-filter">
-                                                <p class="mb-2">Manufacturer</p>
-                                                <?php foreach(get_all_data_array('cc_brand') as $bra){ ?>
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" name="manufacturer[]" <?php foreach ($brandval as $bSel){ echo ($bSel == $bra->brand_id)?'checked':'';} ?>  value="<?php echo $bra->brand_id?>"> <?php echo $bra->name?>
-                                                </label>
-                                                <?php } ?>
-                                            </div>
+                                            <?php echo $brandView;?>
 
                                             <div class="product-filter">
                                                 <p class="mb-2">Rating</p>

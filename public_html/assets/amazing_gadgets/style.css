@@ -1419,7 +1419,11 @@ a {
 .form-control:focus {
     background: rgb(218 218 218 / 44%) !important;
 }
- a:hover,a.active {
+.title-hot a:hover,a.active {
+    color: #ffffff ;
+}
+
+a:hover,a.active {
     color: var(--color-primary) ;
 }
 /*btn-cart:hover{*/

@@ -90,6 +90,12 @@ $routes->get('/product_delete/(:num)', 'Admin\Products::delete/$1');
 $routes->get('/related_product', 'Admin\Products::related_product');
 $routes->post('/product_option_search', 'Admin\Products::product_option_search');
 $routes->post('/product_option_value_search', 'Admin\Products::product_option_value_search');
+$routes->post('/product_copy_action', 'Admin\Products::copy_action');
+$routes->post('/product_image_crop_action', 'Admin\Products::copy_action');
+$routes->post('/product_image_crop_action', 'Admin\Products::image_crop');
+$routes->post('/product_multi_delete_action', 'Admin\Products::multi_delete_action');
+
+
 
 //User
 $routes->get('/user', 'Admin\User::index');
@@ -253,7 +259,10 @@ $routes->post('/bulk_all_status_update', 'Admin\Advanced_products::bulk_all_stat
 $routes->post('/bulk_category_view', 'Admin\Advanced_products::bulk_category_view');
 $routes->post('/bulk_category_update', 'Admin\Advanced_products::bulk_category_update');
 
+$routes->post('/bulk_product_cpoy', 'Admin\Advanced_products::bulk_product_cpoy');
+$routes->post('/bulk_product_multi_delete', 'Admin\Advanced_products::product_multi_delete');
 
+$routes->post('/product_image_sort_action', 'Admin\Products::product_image_sort_action');
 
 
 //login routes
