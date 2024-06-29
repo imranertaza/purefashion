@@ -24,7 +24,7 @@ $(function() {
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
-        "stateSave": false,
+        "stateSave": true,
         "targets": 'no-sort',
         "bSort": false,
         "drawCallback": function( settings ) {
@@ -754,7 +754,7 @@ function submitFormBulk(formID) {
                     "responsive": true,
                     "lengthChange": true,
                     "autoWidth": false,
-                    "stateSave": false,
+                    "stateSave": true,
                     "targets": 'no-sort',
                     "bSort": false,
                     "drawCallback": function( settings ) {
@@ -800,7 +800,7 @@ function bulkAllStatusUpdate(proId, value, field) {
                     "responsive": true,
                     "lengthChange": true,
                     "autoWidth": false,
-                    "stateSave": false,
+                    "stateSave": true,
                     "targets": 'no-sort',
                     "bSort": false,
                     "drawCallback": function( settings ) {
@@ -847,7 +847,7 @@ function categoryBulkUpdateAction() {
                     "responsive": true,
                     "lengthChange": true,
                     "autoWidth": false,
-                    "stateSave": false,
+                    "stateSave": true,
                     "targets": 'no-sort',
                     "bSort": false,
                     "drawCallback": function( settings ) {
@@ -992,7 +992,7 @@ function bulk_product_copy(){
                     "responsive": true,
                     "lengthChange": true,
                     "autoWidth": false,
-                    "stateSave": false,
+                    "stateSave": true,
                     "targets": 'no-sort',
                     "bSort": false,
                     "drawCallback": function( settings ) {
