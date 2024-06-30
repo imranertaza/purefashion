@@ -843,6 +843,9 @@ class Products extends BaseController
                     $proReltable = DB()->table('cc_product_related');
                     $proReltable->insert($proRelData);
                 }
+            }else{
+                $proReltableDel = DB()->table('cc_product_related');
+                $proReltableDel->where('product_id',$product_id)->delete();
             }
             //product_related table data insert(end)
 
