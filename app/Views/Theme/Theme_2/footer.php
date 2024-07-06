@@ -373,11 +373,7 @@
         });
     })
 </script>
-<?php
-$minP = isset($price)?$price['minPrice']:0;
-$maxP = isset($price)?$price['maxPrice']:0;
 
-?>
 <script>
     $(document).scroll(function() {
         var y = $(this).scrollTop();
@@ -424,25 +420,7 @@ $maxP = isset($price)?$price['maxPrice']:0;
         }
     }
 
-    jQuery(function($) {
-        $(".slider-range").slider({
-            range: true,
-            min: <?php print $minP; ?>,
-            max: <?php print $maxP; ?>,
-            values: [<?php print isset($fstprice) ? $fstprice : $minP; ?>,
-                <?php print isset($lstPrice) ? $lstPrice : $maxP; ?>
-            ],
-            slide: function(event, ui) {
-                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
-                $("#price").val("" + ui.values[0] + "," + ui.values[1]);
-                $("#searchForm").submit();
-            }
-        });
-        $("#amount").val("" + $(".slider-range").slider("values", 0) +
-            " - " + $(".slider-range").slider("values", 1));
-        $("#price").val("" + $(".slider-range").slider("values", 0) +
-            "," + $(".slider-range").slider("values", 1));
-    });
+
 
     var slider = new Swiper('.gallery-slider', {
         slidesPerView: 1,
