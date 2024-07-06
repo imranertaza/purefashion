@@ -314,25 +314,6 @@
     }
 
 
-    jQuery(function($) {
-        $(".slider-range").slider({
-            range: true,
-            min: <?php print $price['minPrice']; ?>,
-            max: <?php print $price['maxPrice']; ?>,
-            values: [<?php print isset($fstprice) ? $fstprice : $price['minPrice']; ?>,
-                <?php print isset($lstPrice) ? $lstPrice : $price['maxPrice']; ?>
-            ],
-            slide: function(event, ui) {
-                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
-                $("#price").val("" + ui.values[0] + "," + ui.values[1]);
-                $("#searchForm").submit();
-            }
-        });
-        $("#amount").val("" + $(".slider-range").slider("values", 0) +
-            " - " + $(".slider-range").slider("values", 1));
-        $("#price").val("" + $(".slider-range").slider("values", 0) +
-            "," + $(".slider-range").slider("values", 1));
-    });
 
 
 </script>
