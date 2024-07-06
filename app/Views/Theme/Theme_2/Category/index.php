@@ -35,7 +35,6 @@
                                         <div class="form-group float-end me-2">
                                             <label class="d-none d-sm-inline">Show</label>
                                             <select name="show" onchange="formSubmit()" class="shortBy border">
-                                                <option value="<?php echo get_lebel_by_value_in_settings('category_product_limit');?>" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == get_lebel_by_value_in_settings('category_product_limit')))?'selected':''; ?>><?php echo get_lebel_by_value_in_settings('category_product_limit');?></option>
                                                 <option value="10" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '10'))?'selected':''; ?>>10</option>
                                                 <option value="20" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '20'))?'selected':''; ?>>20</option>
                                                 <option value="25" <?php echo ((isset($_GET['show'])) && ($_GET['show'] == '25'))?'selected':''; ?>>25</option>
@@ -234,57 +233,7 @@
 
                                         <?php echo $brandView;?>
 
-                                        <div class="product-filter">
-                                            <p class="mb-2">Rating</p>
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '5')?'checked':'';} ?> name="rating[]" id="" value="5">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <span class="count">5 Rating</span>
-                                            </label>
-
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '4')?'checked':'';} ?> name="rating[]" id="" value="4">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">4 Rating</span>
-                                            </label>
-
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '3')?'checked':'';} ?> name="rating[]" id="" value="3">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">3 Rating</span>
-                                            </label>
-
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '2')?'checked':'';} ?> name="rating[]" id="" value="2">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">2 Rating</span>
-                                            </label>
-                                            <label class="w-100 mb-2">
-                                                <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '1')?'checked':'';} ?> name="rating[]" id="" value="1">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">1 Rating</span>
-                                            </label>
-                                        </div>
+                                        <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
                                     </div>
                                 </div>`;
         $('#side-data').html(sidebarDesktop);
@@ -355,57 +304,7 @@
 
                                             <?php echo $brandView;?>
 
-                                            <div class="product-filter">
-                                                <p class="mb-2">Rating</p>
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '5')?'checked':'';} ?> name="rating[]" id="" value="5">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <span class="count">5 Rating</span>
-                                                </label>
-
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '4')?'checked':'';} ?> name="rating[]" id="" value="4">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">4 Rating</span>
-                                                </label>
-
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '3')?'checked':'';} ?> name="rating[]" id="" value="3">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">3 Rating</span>
-                                                </label>
-
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '2')?'checked':'';} ?> name="rating[]" id="" value="2">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">2 Rating</span>
-                                                </label>
-                                                <label class="w-100 mb-2">
-                                                    <input type="checkbox" onclick="formSubmit()" <?php foreach ($ratingval as $retSel){ echo ($retSel == '1')?'checked':'';} ?> name="rating[]" id="" value="1">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <i class="fa-regular fa-star"></i>
-                                                    <span class="count">1 Rating</span>
-                                                </label>
-                                            </div>
+                                            <?php if(modules_key_by_access('review') == '1' ){ echo $ratingView; }?>
                                         </div>
                                     </div>
                                 </div>
@@ -413,4 +312,8 @@
                             </div>`;
         $('#side-data').html(sidebarMobile);
     }
+
+
+
+
 </script>
