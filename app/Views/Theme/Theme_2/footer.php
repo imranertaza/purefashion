@@ -1161,20 +1161,20 @@ $maxP = isset($price)?$price['maxPrice']:0;
 
     function optionPriceCalculate(product_id) {
         <?php foreach (get_all_data_array('cc_option') as $v) {
-            if ($v->type == 'radio') { ?>
-                var <?php echo strtolower($v->name); ?> = $('input[name="<?php echo strtolower($v->name); ?>"]:checked').val();
-            <?php }
-            if ($v->type == 'select') { ?>
-                var <?php echo strtolower($v->name); ?> = $('[name="<?php echo strtolower($v->name); ?>"]').val();
+        $fildName = str_replace(' ','',$v->name);
+        if ($v->type == 'radio') { ?>
+        var <?php echo strtolower($fildName); ?> = $('input[name="<?php echo strtolower($fildName); ?>"]:checked').val();
         <?php }
-        } ?>
+        if ($v->type == 'select') { ?>
+        var <?php echo strtolower($fildName); ?> = $('[name="<?php echo strtolower($fildName); ?>"]').val();
+        <?php } } ?>
         $.ajax({
             method: "POST",
             url: "<?php echo base_url('optionPriceCalculate') ?>",
             data: {
                 product_id: product_id,
-                <?php foreach (get_all_data_array('cc_option') as $vl) { ?>
-                    <?php echo strtolower($vl->name); ?>: <?php echo strtolower($vl->name); ?>,
+                <?php foreach (get_all_data_array('cc_option') as $vl) { $fildName2 = str_replace(' ','',$vl->name); ?>
+                <?php echo strtolower($fildName2); ?>: <?php echo strtolower($fildName2); ?>,
                 <?php } ?>
             },
             success: function(data) {
