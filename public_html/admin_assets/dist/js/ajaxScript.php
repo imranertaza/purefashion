@@ -24,7 +24,7 @@ $(function() {
         "responsive": true,
         "lengthChange": true,
         "autoWidth": false,
-        "stateSave": false,
+        "stateSave": true,
         "targets": 'no-sort',
         "bSort": false,
         "drawCallback": function( settings ) {
@@ -549,12 +549,12 @@ function searchOptionUp(key) {
     });
 }
 
-function optionViewPro(option_id, name) {
+function optionViewPro(option_id, name,nameTitle) {
     var n = "'" + name + "_op'";
     var rl = "'" + name + "_remove'";
     var nr = "'" + name + "'";
     var link = '<a class="nav-link active text-dark" id="' + name + '_remove"  data-toggle="pill" href="#' + name +
-        '" role="tab" aria-controls="vert-tabs-home" aria-selected="true">' + name +
+        '" role="tab" aria-controls="vert-tabs-home" aria-selected="true">' + nameTitle +
         '<button type="button" class="btn btn-sm" onclick="remove_option_new_ajax(' + rl + ',' + nr +
         ')"><i class="fa fa-trash text-danger"></i></button></a>';
     var con = '<div class="tab-pane text-left fade  show active" id="' + name +
@@ -754,7 +754,7 @@ function submitFormBulk(formID) {
                     "responsive": true,
                     "lengthChange": true,
                     "autoWidth": false,
-                    "stateSave": false,
+                    "stateSave": true,
                     "targets": 'no-sort',
                     "bSort": false,
                     "drawCallback": function( settings ) {
@@ -800,7 +800,7 @@ function bulkAllStatusUpdate(proId, value, field) {
                     "responsive": true,
                     "lengthChange": true,
                     "autoWidth": false,
-                    "stateSave": false,
+                    "stateSave": true,
                     "targets": 'no-sort',
                     "bSort": false,
                     "drawCallback": function( settings ) {
@@ -847,7 +847,7 @@ function categoryBulkUpdateAction() {
                     "responsive": true,
                     "lengthChange": true,
                     "autoWidth": false,
-                    "stateSave": false,
+                    "stateSave": true,
                     "targets": 'no-sort',
                     "bSort": false,
                     "drawCallback": function( settings ) {
@@ -992,7 +992,7 @@ function bulk_product_copy(){
                     "responsive": true,
                     "lengthChange": true,
                     "autoWidth": false,
-                    "stateSave": false,
+                    "stateSave": true,
                     "targets": 'no-sort',
                     "bSort": false,
                     "drawCallback": function( settings ) {
