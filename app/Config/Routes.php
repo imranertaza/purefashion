@@ -91,7 +91,6 @@ $routes->get('/related_product', 'Admin\Products::related_product');
 $routes->post('/product_option_search', 'Admin\Products::product_option_search');
 $routes->post('/product_option_value_search', 'Admin\Products::product_option_value_search');
 $routes->post('/product_copy_action', 'Admin\Products::copy_action');
-$routes->post('/product_image_crop_action', 'Admin\Products::copy_action');
 $routes->post('/product_image_crop_action', 'Admin\Products::image_crop');
 $routes->post('/product_multi_delete_action', 'Admin\Products::multi_delete_action');
 
